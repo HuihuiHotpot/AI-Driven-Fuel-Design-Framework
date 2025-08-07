@@ -7,13 +7,3 @@ This repository contains the code used in the manuscript titled:
 The framework consists of two main modules:
 1. **Conditional Expert Architecture** for prediction of engine performance based on fuel physicochemical properties.
 2. **NSGA-II based Optimization** for identifying optimal fuel property combinations to improve engine performance.
-
-## 🔧 Dependencies
-
-The code was developed using:
-
-- Python 3.11+
-- PyTorch ≥ 2.0
-- Optuna
-- NumPy, Pandas, Scikit-learn
-- matplotlib, seaborn (for plots)
