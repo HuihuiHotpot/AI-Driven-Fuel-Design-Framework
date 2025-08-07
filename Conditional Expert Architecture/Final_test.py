@@ -30,28 +30,22 @@ columns_to_scale = ['径程比', '压缩比', '单缸排量/mm3', '燃烧室容�
                     '单缸循环供油量/mg', '喷油时刻（°CA BTDC）', 'EGR/%', '单缸循环供能/J', '密度（kg/m3）',
                     'CN', 'LHV（MJ/kg）', '含氧量wt%', 'YSI-Das', '进气温度/K', '进气压力/bar', '负荷/bar', '热效率']
 
-# 指定类别变量的列
 categorical_columns = ['负荷类型', '密度测试温度/K', '缸数', '进气方式']
 
-# 加载scaler和encoder
 scalers = joblib.load(scaler_path)
 with open(encoder_path, 'rb') as f:
     label_encoders = pickle.load(f)
 
-# 加载测试集
 test_df = pd.read_excel(file_path, sheet_name=sheet_names[-1], keep_default_na=False)[required_columns].replace('', np.nan)
 
-# 编码分类变量
 for col in categorical_columns:
     le = label_encoders[col]
     test_df[col] = le.transform(test_df[col])
 
-# 归一化
 scaled_df = test_df.copy()
 for col in columns_to_scale:
     scaled_df[col] = scalers[col].transform(test_df[[col]])
 
-# 构建 DataLoader
 test_dataset = UserDataset(scaled_df)
 test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
 
@@ -100,7 +94,6 @@ def load_model_fold(fold_idx):
         output_sizes=(1, 1)
     ).to('cuda')
 
-    # 加载权重
     model_path = os.path.join(model_dir, f'fold{fold_idx + 1}.pth')
     checkpoint = torch.load(model_path, map_location=device)
 
@@ -232,4 +225,5 @@ plt.title(f"Thermal Efficiency - Test Set\nMSE: {mse_eff:.6f}, R²: {r2_eff:.4f}
 plt.xlabel("True Efficiency")
 plt.ylabel("Predicted Efficiency")
 plt.grid(True)
+
 plt.show()
