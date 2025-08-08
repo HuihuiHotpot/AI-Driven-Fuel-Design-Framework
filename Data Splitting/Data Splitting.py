@@ -141,7 +141,7 @@ selected_features = ['压缩比', '径程比', '单缸排量/mm3', "燃烧室容
 for feature in selected_features:
     plt.figure(figsize=(12, 6))
     sns.kdeplot(data=data, x=feature, label='全局', color='black', lw=2)
-    # 绘制每个 fold 的分布
+
     for fold in sorted(data['fold'].unique()):
         fold_data = data[data['fold'] == fold]
         sns.kdeplot(data=fold_data, x=feature, label=f'Fold {fold}', fill=True, alpha=0.1)
@@ -198,4 +198,5 @@ for feature in additional_features:
 plt.show()
 
 output_path = 'result.xlsx'
+
 data.to_excel(output_path, index=False)
