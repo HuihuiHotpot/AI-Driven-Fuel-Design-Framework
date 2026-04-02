@@ -2,7 +2,7 @@
 
 This repository contains the code used in the manuscript titled:
 
-> *"An AI-driven framework for fuel design in physicochemical property space toward sustainable engine combustion."*
+> *"An artificial intelligence-driven framework for fuel design targeting fuel properties for sustainable engine combustion"*
 
 The code consists of three main modules:
 1. **Data Splitting** for constructing six representative folds to support robust training, validation, and unbiased testing.
